@@ -6,6 +6,9 @@ e imprima o nome desse campeonato no console.
 */
 // ?
 
+var championship = "Cearense";
+console.log(championship);
+
 /*
 Declare uma variável chamada `teams`, que receberá um array com 5 elementos.
 Os elementos serão nomes de times do campeonato escolhido, e os nomes devem
@@ -13,6 +16,8 @@ estar na ordem em que eles aparecem na tabela no momento da solução desse
 desafio.
 */
 // ?
+
+var teams = ['Fortaleza','Ferroviário','Horizonte','Uniclinic','Ceará'];
 
 console.log( 'Times que estão participando do campeonato:', teams );
 
@@ -33,6 +38,11 @@ Crie uma função chamada `showTeamPosition` com as seguintes características:
     "Não temos a informação do time que está nessa posição."
 */
 // ?
+var showTeamPosition = function(posicao) {
+    
+return posicao < 1 || posicao > 5 ? "nao temos dados !" :"o time que esta em "+ posicao +"º" + "é o "+ teams[posicao-1]  
+}
+
 
 /*
 Escolha 4 times do campeonato selecionado e mostre a posição dele, usando a
@@ -40,12 +50,26 @@ função acima. Entre esses 4, adicione 1 que não esteja entre os 5 primeiros.
 */
 // ?
 
+showTeamPosition(1)
+showTeamPosition(1)
+showTeamPosition(1)
+showTeamPosition(1)
+showTeamPosition(1)
 /*
 Mostre os números de 20 a 30 no console (inclusive o 30), usando a estrutura de
 repetição "while".
 */
 // ?
+var num = 20;
 
+while (num < 50) {
+
+if (num >= 20 && num <=30){
+    console.log(num); 
+
+}
+num++
+}
 /*
 Crie uma função chamada `convertToHex`, com as seguintes características:
     - A função recebe uma cor por parâmetro, do tipo string. Exemplo: "red";
@@ -59,8 +83,29 @@ Crie uma função chamada `convertToHex`, com as seguintes características:
     "Não temos o equivalente hexadecimal para [COR]."
 */
 // ?
-
+var convertToHex = function(cor) {
+    var hexa ;
+    switch(cor) {  // passei o valor recebido por parametro na função
+//    !!!OBS ::  SEMPRE USAR O BREAK PARA VALORES ENCONTRADOS OU NN      
+        case  'red' : 
+            hexa = 'FF0001' ;
+            break;
+        case  'blue' :
+            hexa = 'BE0021' 
+        case  'green': 
+            break;        
+        case  'white' :
+            hexa = 'WH0000' ;
+            break;
+        case  'black' : 
+            hexa = 'BK0010' ;
+            break;
+        default : return "não ter valor para "+cor      ;
+    }
+    return 'o valor da cor '+cor+ ' é : ' +hexa
+}
 /*
 Tente mostrar o hexadecimal de 8 cores diferentes usando a função criada acima.
 */
 // ?
+console.log(convertToHex('green'))
