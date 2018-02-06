@@ -9,12 +9,13 @@ deles seja "true", usando os Wrapper Objects como "conversores" nos valores
 das variáveis. Analise o que está sendo impresso no console para saber como
 resolver o problema corretamente.
 */
+/*
 var five = '5';
 console.log( five + ' é número?', typeof five === 'number' );
 
 var concat = 10 + 10;
 console.log( '"' + concat + '" é uma string? E é igual a "1010"?', typeof concat === 'string' );
-
+*/
 /*
 Voltando ao exemplo da calculadora, vamos utilizar mais uma abordagem
 funcional, mas dessa vez, separando algumas responsabilidades.
@@ -25,7 +26,23 @@ função receberá dois parâmetros e retornará a operação referente à sua
 propriedade, usando os valores passados por parâmetro.
 */
 // ?
-
+operator = {
+    '+':function (a,b) {
+        return a + b ;
+    } ,
+    '-':function (a,b) {
+        return a - b ;
+    } , 
+    '*':function (a,b) {
+        return a * b ;
+    } , 
+    '/':function (a,b) {
+        return a / b ;
+    } ,
+    '%':function (a,b) {
+        return a % b ;
+    }  
+}
 /*
 Crie uma função chamada `isOperatorValid`, que receberá um operador por
 parâmetro.
@@ -37,8 +54,11 @@ Caso contrário, "false".
 - O desafio é fazer o retorno sem usar "if" ou "switch".
 */
 // ?
-
+var isOperatorValid = function(operador) {
+    return !!operator[operador];
+}
 /*
+
 Agora vamos criar a calculadora.
 - Crie uma função chamada `calculator`, que receberá como parâmetro um
 operador;
@@ -51,6 +71,17 @@ operador passado para a função "calculator", e passando para esse método
 os dois parâmetros da função de retorno de "calculator".
 */
 // ?
+var calculator = function ( operador ) {
+    if( isOperatorValid(operador)){
+        return function(a,b){
+         if (typeof a !== 'number' || typeof  b !== 'number'){
+             return false;
+            } 
+            return operator[operador](a,b);   
+        }
+        false
+    }
+}
 
 /*
 Crie uma função chamada "showOperationMessage" que recebe três parâmetros:
@@ -60,6 +91,9 @@ deve ser a frase:
 Essa função mostrará a mensagem da operação que criaremos mais abaixo.
 */
 // ?
+var showOperationMessage = function(operador,a,b) {
+    return 'A operação '+a+' ' +operador+' ' +b+ ' =';
+}
 
 /*
 Crie uma função chamada "showErrorMessage" que recebe um parâmetro: o
@@ -68,6 +102,9 @@ Essa função deverá retornar a frase:
 'Operação "[OPERATOR]" não permitida!'
 */
 // ?
+var showErrorMessage = function(operador){
+    return 'o operador '+operador+ ' não é válido!';
+}
 
 /*
 Nossa calculadora está pronta! Agora vamos testá-la:
@@ -76,7 +113,7 @@ PASSO 1:
 "operationSignal", sem valor por enquanto.
 */
 // ?
-
+var number1 =10, number2 =4 , operationSignal; 
 /*
 PASSO 2:
 Atribua à variável operationSignal o operador de soma, e declare uma
@@ -84,7 +121,10 @@ variável chamada "sum", que receba a função "calculator", passando por
 parâmetro a variável que recebeu o sinal da operação.
 */
 // ?
+operationSignal = '+';
+sum = calculator(operationSignal)
 
+console.log(sum)
 /*
 PASSO 3:
 "sum" agora é uma função, e, se o sinal correto não foi passado para a
@@ -98,6 +138,14 @@ parâmetros para o método "log" de "console":
 - Se "sum" for "false", mostrar no console a mensagem de erro.
 */
 // ?
+if (sum){
+    console.log(showOperationMessage(operationSignal,number1,number2), sum(number1,number2))
+} else console.log(showErrorMessage(operationSignal))
+
+
+
+
+
 
 /*
 Repita desde o "PASSO 2" com as operações de subtração, multiplicação,
@@ -105,9 +153,27 @@ divisão e resto. Crie variáveis com os nomes "subtraction",
 "multiplication", "division" e "mod".
 */
 // ?
+operationSignal = '-';
+sum = calculator(operationSignal)
+
+operationSignal = '*';
+sum = calculator(operationSignal)
+
+operationSignal = '/';
+sum = calculator(operationSignal)
+
+operationSignal = '%';
+sum = calculator(operationSignal)
 
 /*
 Repita o PASSO 2 novamente, mas passando um operador inválido, para ver se
 a mensagem de erro será mostrada no console.
 */
 // ?
+
+operationSignal = 'n';
+sum = calculator(operationSignal)
+
+if (sum){
+    console.log(showOperationMessage(operationSignal,number1,number2), sum(number1,number2))
+} else console.log(showErrorMessage(operationSignal))
