@@ -2,7 +2,9 @@
 Envolva todo o código desse desafio em uma IIFE.
 Crie um arquivo chamado index.html e adicione esse script ao HTML.
 */
+(function(){
 
+  
 /*
 Crie uma função construtora chamada "Person". Esse construtor deve ter
 as seguintes características:
@@ -22,6 +24,28 @@ as seguintes características:
   que será instanciado.
 */
 // ?
+ function Person (nome , lastName , age) {
+  this.nome = nome; 
+  this.lastName = lastName;
+  this.age = age;
+
+  this.getAge = function(){
+    return this.age;
+  }
+    
+    this.getFullName = function() {
+      return this.nome +' '+ this.lastName;
+    };
+    
+    function getAge(){
+      return this.age;
+    };
+ 
+    function addAge (){
+      this.age += arguments[0];
+      return this;
+    };
+}
 
 /*
 Crie 3 novos objetos usando o construtor acima. Os objetos serão novas
@@ -31,20 +55,32 @@ Mostre as 3 novas pessoas criadas no console (Um console.log por pessoa).
 */
 console.log( 'Novas pessoas criadas à partir de Person:' );
 // ?
+ var Thiago = new Person('Thiago','Miranda',24 )
+ 
+ var Irythelly = new Person('Irythelly','Viana',24 )
 
-/*
-Mostre no console o nome completo de cada pessoa.
+ var Laura = new Person('Laura','Miranda',13 )
+
+
+ /*
+Mostre no console o nome completo de cada pessoa. 
 */
 console.log( '\nNomes das pessoas:' );
 // ?
 
+console.log(Thiago)
+console.log(Irythelly)
+console.log(Laura)
+
+Irythelly.getFullName
+Laura.getFullName
 /*
 Mostre no console as idades de cada pessoa, com a frase:
 - "[NOME COMPLETO] tem [IDADE] anos."
-*/
+*/    
 console.log( '\nIdade das pessoas:' );
 // ?
-
+console.log(Thiago.getFullName()+ 'tem' + Thiago.getAge())
 /*
 Adicione alguns anos à cada pessoa, e mostre no console a nova idade de
 cada um. A frase deverá ser no formato:
@@ -52,3 +88,10 @@ cada um. A frase deverá ser no formato:
 */
 console.log( '\nNova idade das pessoas:' );
 // ?
+Thiago.addAge(2)
+Irythelly.addAge(5)
+Laura.addAge(3)
+console.log( Thiago.getFullName()+' agora tem  '+ Thiago.addAge(3).getAge()+' anos' )
+console.log( Laura.getFullName()+' agora tem  '+ Laura.addAge(3).getAge()+' anos' )
+console.log( Irythelly.getFullName()+' agora tem  '+ Irythelly.addAge(3).getAge()+' anos' )
+})
