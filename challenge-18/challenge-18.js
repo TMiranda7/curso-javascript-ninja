@@ -3,7 +3,7 @@
 2. Adicione a diretiva 'use strict';
 3. Crie um arquivo index.html e adicione esse script à ele.
 */
-
+(function(){
 /*
 Crie uma função chamada `cleanCPF`, que receba um CPF por parâmetro, e
 retorne esse CPF limpo (somente os números).
@@ -16,7 +16,14 @@ eles! Use um console.log para cada CPF.
 */
 console.log( 'Limpando CPFs:' );
 // ?
-
+function cleanCPF (CPF){
+  return CPF.replace(/\D/g,'')
+}
+    var CPFs = ['049-214 3421-1','210.458.522-05','735 500 794 - 22','101.123-131x32']
+   CPFs.forEach(function(CPF){
+       console.log(cleanCPF(CPF))
+   })
+ 
 /*
 Usando os CPFs limpos acima, deixe-os com a formatação correta de CPF.
 Ex.: "999.999.999-99"
@@ -24,13 +31,17 @@ Mostre o resultado no console.
 */
 console.log( '\nFormatando CPFs corretamente:' );
 // ?
+CPFs.forEach(function(CPF){
+   return console.log(cleanCPF(CPF).replace(/(\d\d\d)(\d\d\d)(\d\d\d)(\d\d)/g,'$1.$2.$3-$4'))
+})
 
 /*
 Crie uma expressão regular que faça match com as palavras "junho" ou "julho",
 usando o mínimo de caracteres possíveis na regex.
 Para garantir que a regex funciona, teste-a usando o método match. Se houver
 o match, o método retorna um array com os matches. Caso contrário, ele
-retornará null.
+retornará null.                                                         
+ 
 Mostre no console o resultado do match para a frase:
 "Os meses de janeiro, junho e julho começam com a letra j."
 O resultado deve ser:
@@ -38,6 +49,8 @@ O resultado deve ser:
 */
 console.log( '\nMatch com as palavras "junho" ou "julho" para a frase "Os meses de janeiro, junho e julho começam com a letra j.":' );
 // ?
+
+console.log('Os meses de janeiro, junho e julho começam com a letra j'.match(/ju[nl]ho/g))
 
 /*
 Crie uma expressão regular que faça o match com a abertura de uma tag
@@ -50,7 +63,8 @@ O resultado deve ser:
 */
 console.log( '\nMatch com a abertura de uma tag HTML:' );
 // ?
-
+console.log('<div><section><blockquote>Texto <img /></blockquote></section></div>)'
+.match(/<\w+>/g))
 /*
 Crie uma expressão regular que faça o match com uma tag HTML vazia, casando
 com a abertura e fechamento da tag.
@@ -62,7 +76,7 @@ O resultado deve ser:
 */
 console.log( '\nMatch com tags HTML vazias (abertura e fechamento da tag):' );
 // ?
-
+console.log("<div><ul><li></li><li></li><li><span></span></li></ul></div>".match(/<\w+><\/\w+/g))
 /*
 Vamos complicar um pouco agora :D
 
@@ -76,7 +90,7 @@ Use a marcação abaixo para fazer o replace:
 A marcação deve permanecer como está, somente o texto deve ser substituído.
 No replace, utilize quebras de linha para deixar uma tag por linha.
 
-O resultado deve ser esse:
+O resultad                          o deve ser esse:
 <h1>O texto dentro da tag "h1" é "Título da página"</h1>
 <p>O texto dentro da tag "p" é "Este é um parágrafo"</p>
 <footer>O texto dentro da tag "footer" é "Rodapé"</footer>
@@ -87,3 +101,4 @@ corretas, para depois aplicar no código ;)
 */
 console.log( '\nFazer replace dos textos das tags:' );
 // ?
+})()
