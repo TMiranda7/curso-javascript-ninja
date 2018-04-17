@@ -51,6 +51,7 @@ function nomear(nome , sobrenome ){
       return (+acumulator) + (+item); 
     });
   } 
+  
    
   /*
   Mostre no console que a função acima funciona, invocando-a em 3 console.log
