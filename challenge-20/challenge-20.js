@@ -8,8 +8,12 @@ a marcação criada nele para fazer nosso desafio ;)
 
 O HTML NÃO PODE ser alterado!
 */
+<<<<<<< HEAD
 (function(win,doc){
     'use strict';
+=======
+(function(doc,win){
+>>>>>>> 79863ccedfa7b7d821fb1496cf0c037cc9bfa140
 /*
 Ao carregar a página, pergunte ao usuário "Qual o seu nome?". Atribua o
 resultado à uma variável chamada `username`. Se o usuário não digitar um
@@ -17,21 +21,40 @@ nome, `username` deve receber "Desconhecido".
 Com a resposta, mostre um alert com a mensagem "Bem vindo [USERNAME]!"
 */
 // ?
+<<<<<<< HEAD
 var UserName = prompt('qual o seu nome ?')|| 'Desconhecido';
 alert('Bem Vindo '+UserName) + ' !';
 
+=======
+var username;
+username = prompt("Qual o seu nome ? ");
+if (!username){
+    username = "Desconhecido"
+}
+alert ("bem vindo "+ username+" !");
+>>>>>>> 79863ccedfa7b7d821fb1496cf0c037cc9bfa140
 /*
 Agora, pergunte ao usuário "Qual o seu e-mail?", atribuindo o resultado à
 uma variável chamada `email`.
 */
 // ?
+<<<<<<< HEAD
 var email = prompt('qual o seu e-mail?');
+=======
+var email;
+email = prompt("Qual o seu email ? ");
+>>>>>>> 79863ccedfa7b7d821fb1496cf0c037cc9bfa140
 /*
 - Selecione o input de "Nome", atribuindo-o à uma variável chamada
 `$inputUsername`.
 */
 // ?
+<<<<<<< HEAD
 var $inputUsername = doc.querySelector('input[type="Text"]');
+=======
+var $inputUsername = doc.querySelector('input[type="text"]');
+
+>>>>>>> 79863ccedfa7b7d821fb1496cf0c037cc9bfa140
 /*
 - Selecione o input de "Email", atribuindo-o à uma variável chamada
 `$inputEmail`.
@@ -42,21 +65,37 @@ var $inputEmail = doc.querySelector('input[type="email"]');
 - Selecione o campo de "Mensagem", atribuindo-o à uma variável chamada
 `$message`.
 */
+<<<<<<< HEAD
 // ?
 var $message = doc.querySelector('textarea')
+=======
+// 
+var $message = doc.querySelector('textarea');
+>>>>>>> 79863ccedfa7b7d821fb1496cf0c037cc9bfa140
 /*
 - Selecione o botão de envio do formulário, atribuindo-o à uma variável
 chamada `$button`.
 */
 // ?
+<<<<<<< HEAD
 var $button = doc.querySelector('button')
+=======
+var $button = doc.querySelector('button') ;
+>>>>>>> 79863ccedfa7b7d821fb1496cf0c037cc9bfa140
 /*
 Preencha os campos de "Nome" e "Email" que estão no documento com os valores
 entrados pelo usuário.
 */
 // ?
+<<<<<<< HEAD
  $inputUsername.value = UserName;
  $inputEmail.value = email;
+=======
+$inputUsername.value = username;
+$inputEmail.value = email;
+
+
+>>>>>>> 79863ccedfa7b7d821fb1496cf0c037cc9bfa140
 /*
 Adicione um listener de evento de click ao botão que faça o seguinte:
 1. Verificar se todos os campos estão preenchidos:
@@ -98,7 +137,24 @@ $button.addEventListener('click',function(){
     if (confirm('tem certeza que deseja enviar ?'))
      return alert('enviado com sucesso !');
 
+<<<<<<< HEAD
 },false)
+=======
+$button.addEventListener('click', function(){
+    event.preventDefault();
+
+    if (!isValidEmail($inputEmail.value))
+      return alert("email invalido");
+    if (!$inputUsername.value ||!$inputEmail.value ||!$message.value ){
+      return alert('Verifique os Campos Obrigatorios ')
+    };
+    if ( !confirm('tem certeza ?'))
+        return alert ("Não enviado !")
+    return alert("enviado com sucesso!")
+
+} ,false)
+
+>>>>>>> 79863ccedfa7b7d821fb1496cf0c037cc9bfa140
 /*
 Crie uma função chamada `isValidEmail`, que será usada na validação do
 envio do formulário.
@@ -125,9 +181,17 @@ Alguns e-mails inválidos:
     - "rita-marica@titica.a.b"
     - "agua_@evida.br.com"
 */
+<<<<<<< HEAD
 
 function isValidEmail (email){
     return /\w+([\._]?\w+)?@\w+\.com(.\w(2))?/.test(email)
 }
 // ?
 })(window,document)     
+=======
+// 
+function isValidEmail (email){
+    return /^[\w+.]+@\w+\.\w{2,}(\.\w{2})?/m.test(email)
+}
+})(document,window)
+>>>>>>> 79863ccedfa7b7d821fb1496cf0c037cc9bfa140
