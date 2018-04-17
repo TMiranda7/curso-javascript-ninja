@@ -1,8 +1,10 @@
-(function(window , document){
+(function(){
 
-	'use strict;'
-	var $inputUserName = document.querySelect('#login')
-	var $inoutPass = document.querySelector('#password')
+  var comida = [{ nome: 'arroz',preco:4.5},
+  { nome: 'feijão',preco:3.0}]
 
-	console.log($inputUserName.value,$inoutPass.value)	
-})(window , document)
+  console.table(comida)
+})()
+
+
+
