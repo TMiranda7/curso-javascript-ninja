@@ -19,3 +19,44 @@ Crie os seguintes métodos para verificação de tipo:
 - isArray, isObject, isFunction, isNumber, isString, isBoolean, isNull.
 O método isNull deve retornar `true` se o valor for null ou undefined.
 */
+(function(){
+    function DOM(string){
+        this.element = document.querySelectorAll(string);
+    }
+
+    DOM.prototype.on = function on(evento,callback){
+      Array.prototype.forEach.call(this.element,function(element){
+        element.addEventListener(evento,callback,false);
+      })
+    }
+    
+    DOM.prototype.off = function off(evento,callback){
+      Array.prototype.forEach.call(this.element,function(element){
+        element.removeEventListener(evento,callback,false);
+      })
+    }
+    
+    DOM.prototype.forEach = domEvents('forEach');
+    DOM.prototype.map = domEvents('map');
+    DOM.prototype.filter = domEvents('filter');
+    DOM.prototype.reduce = domEvents('reduce');
+    DOM.prototype.reduceRight = domEvents('reduceRight');
+    DOM.prototype.every = domEvents('every');
+    DOM.prototype.some = domEvents('some');
+
+    function domEvents (evento){ 
+      return function(){
+        Array.prototype[evento].apply(this.element,arguments);
+      }
+    }   
+
+    var $a = new DOM('[data-js="link"]');
+    $a.on('click',handleclick);
+
+    function handleclick(e) {
+    e.preventDefault();
+    console.log('clicou');
+    $a.off('click',handleclick);
+    }
+
+})()
