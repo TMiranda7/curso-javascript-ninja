@@ -1,13 +1,4 @@
   /*
-  No HTML:
-  - Crie um formulário com um input de texto que receberá um CEP e um botão
-  de submit;
-  - Crie uma estrutura HTML para receber informações de endereço:
-  "Logradouro, Bairro, Estado, Cidade e CEP." Essas informações serão
-  preenchidas com os dados da requisição feita no JS.
-  - Crie uma área que receberá mensagens com o status da requisição:
-  "Carregando, sucesso ou erro."
-
   No JS:
   - O CEP pode ser entrado pelo usuário com qualquer tipo de caractere, mas
   deve ser limpo e enviado somente os números para a requisição abaixo;
@@ -22,6 +13,123 @@
   "Não encontramos o endereço para o CEP [CEP]."
   - Se houver endereço para o CEP digitado, mostre a mensagem:
   "Endereço referente ao CEP [CEP]:"
+  
+  
   - Utilize a lib DOM criada anteriormente para facilitar a manipulação e
   adicionar as informações em tela.
   */
+ 
+(function(doc,win){
+  'use strict';
+ 
+  function DOM(string){
+      this.element = doc.querySelectorAll(string);
+  }
+
+  DOM.prototype.on = function on(evento,callback){
+    Array.prototype.forEach.call(this.element,function(element){
+      element.addEventListener(evento,callback,false);
+    })
+  }
+  
+  DOM.prototype.off = function off(evento,callback){
+    Array.prototype.forEach.call(this.element,function(element){
+      element.removeEventListener(evento,callback,false);
+    })
+  }
+
+  DOM.prototype.get = function (){
+    return this.element;
+  }
+  
+  DOM.prototype.forEach = domEvents('forEach');
+  DOM.prototype.map = domEvents('map');
+  DOM.prototype.filter = domEvents('filter');
+  DOM.prototype.reduce = domEvents('reduce');
+  DOM.prototype.reduceRight = domEvents('reduceRight');
+  DOM.prototype.every = domEvents('every');
+  DOM.prototype.some = domEvents('some');
+
+  function domEvents (evento){ 
+    return function(){
+      Array.prototype[evento].apply(this.element,arguments);
+    }
+  }
+  
+  var $formCEP = new DOM('[data-js="forCep"]');
+  var $input = new DOM('[data-js="endereco_CEP"]');
+  var ajax = new XMLHttpRequest();
+  var $status = new DOM('[data-js="status"]');  
+  $formCEP.on("submit",testando);
+
+  function testando(event){
+    event.preventDefault(); 
+    messagem('loading');
+    ajax.open('GET',getLink());
+    ajax.send();
+    ajax.addEventListener('readystatechange',handleStateChange)
+  }
+
+  function getLink(){
+    var result ;
+    try{
+      result = 'https://viacep.com.br/ws/[CEP]/json/'.
+      replace('[CEP]',cleanerCEP());
+    }
+    catch(e){
+      messagem('erro');
+    }
+
+    return result;
+  }
+
+  function cleanerCEP(){
+    return $input.get()[0].value.replace(/\D/g,''); 
+  }
+
+  function handleStateChange(){
+    if (ajax.readyState === 4 && ajax.status === 200)
+      isFillCEPField();
+    messagem('erro');  
+  }
+
+  function isFillCEPField(){
+     messagem('ok');    
+     seachValuesEndereco('[data-js="logradouro"]','logradouro')
+     seachValuesEndereco('[data-js="cidade"]','localidade')
+     seachValuesEndereco('[data-js="bairro"]','bairro')
+     seachValuesEndereco('[data-js="estado"]','uf')
+     seachValuesEndereco('[data-js="cep"]','cep')  
+  }
+
+  function seachValuesEndereco(string,locate){
+    var data = parseData();
+    new DOM(string).get()[0].textContent = data[locate];
+  }
+
+  function parseData(){
+    var resultado;
+    try{
+      resultado = JSON.parse(ajax.responseText) 
+    }
+    catch(e){
+      resultado = null;
+      console.log(resultado);
+    }
+    return resultado;
+  }
+
+  function messagem(type){
+    var messagem = {
+      loading:'aguarde enquanto carrega...',
+      ok:replaceCEP('resultado para o CEP [CEP]'),
+      erro:replaceCEP('nao achamos respostas para o CEP [CEP]')
+    }
+    $status.get()[0].textContent = messagem[type]; 
+  }
+
+  function replaceCEP(mensagem){
+    mensagem.replace('[CEP]',cleanerCEP());
+  }
+
+})(document,window) 

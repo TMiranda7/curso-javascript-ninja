@@ -38,7 +38,7 @@ O método isNull deve retornar `true` se o valor for null ou undefined.
     
     DOM.prototype.forEach = domEvents('forEach');
     DOM.prototype.map = domEvents('map');
-    DOM.prototype.filter = domEvents('filter');
+     DOM.prototype.filter = domEvents('filter');
     DOM.prototype.reduce = domEvents('reduce');
     DOM.prototype.reduceRight = domEvents('reduceRight');
     DOM.prototype.every = domEvents('every');
